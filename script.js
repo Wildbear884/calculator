@@ -30,3 +30,7 @@ function operate(term1, term2, operator) {
     return "Something went wrong. No calculations were preformed.";
   }
 }
+
+let calcDisplayTerm1 = 0;
+let calcDisplayTerm2 = 0;
+let calcDisplayAnswer = 0;
