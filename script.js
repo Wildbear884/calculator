@@ -16,3 +16,17 @@ function divide(dividend, divisor) {
   }
   return dividend / divisor;
 }
+
+function operate(term1, term2, operator) {
+  if (operator === "add") {
+    return add(term1, term2);
+  } else if (operator === "subtract") {
+    return subtract(term1, term2);
+  } else if (operator === "multiply") {
+    return multiply(term1, term2);
+  } else if (operator === "divide") {
+    return divide(term1, term2);
+  } else {
+    return "Something went wrong. No calculations were preformed.";
+  }
+}
