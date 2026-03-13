@@ -11,9 +11,6 @@ function multiply(factor1, factor2) {
 }
 
 function divide(dividend, divisor) {
-  if (Number(divisor) === 0) {
-    return "Can't divide by 0";
-  }
   return dividend / divisor;
 }
 
@@ -135,10 +132,15 @@ function calcBtnClicked() {
   if (btn.isOperator && !operatorSelected && firstTerm.length > 0) {
     operatorSelected = true;
   } else if (btn.isOperator && operatorSelected && secondTerm.length > 0) {
-    answer = operate(firstTerm, secondTerm, selectedOperator).toString();
-    calcDisplay.textContent = answer;
-    firstTerm = answer;
-    secondTerm = "";
+    if (selectedOperator === "divide" && secondTerm === "0") {
+      calcDisplay.textContent = snarkyComment;
+      secondTerm = "";
+    } else {
+      answer = operate(firstTerm, secondTerm, selectedOperator).toString();
+      calcDisplay.textContent = answer;
+      firstTerm = answer;
+      secondTerm = "";
+    }
   }
 
   if (btn.isOperator) {
@@ -146,11 +148,16 @@ function calcBtnClicked() {
   } 
   
   if (btn.isEquals && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0) {
-    answer = operate(firstTerm, secondTerm, selectedOperator);
-    calcDisplay.textContent = answer;
-    firstTerm = "";
-    secondTerm = "";
-    operatorSelected = false;
+    if (selectedOperator === "divide" && secondTerm === "0") {
+      calcDisplay.textContent = snarkyComment;
+      secondTerm = "";
+    } else {
+      answer = operate(firstTerm, secondTerm, selectedOperator);
+      calcDisplay.textContent = answer;
+      firstTerm = "";
+      secondTerm = "";
+      operatorSelected = false;
+    }
   }
 
   if (btn.isClear) {
@@ -188,6 +195,7 @@ let operatorSelected = false;
 let firstTerm = "";
 let secondTerm = "";
 let answer = "";
+const snarkyComment = "Dividing by 0? Really?";
 
 const calcBtns = document.querySelectorAll(".calc-buttons-container > button");
 const calcDisplay = document.querySelector(".calc-display");
