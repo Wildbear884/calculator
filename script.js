@@ -151,6 +151,15 @@ function calcBtnClicked() {
     secondTerm = "";
     operatorSelected = false;
   }
+
+  if (btn.isClear) {
+    selectedOperator = "";
+    operatorSelected = false;
+    firstTerm = "";
+    secondTerm = "";
+    answer = "";
+    calcDisplay.textContent = "";
+  }
 }
 
 let selectedOperator = "";
