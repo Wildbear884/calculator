@@ -38,6 +38,7 @@ function getCalcBtnClicked(btn) {
     isBackspace: false,
     isClear: false,
     isEquals: false,
+    isDecimal: false,
     content: "",
   };
   
@@ -91,7 +92,7 @@ function getCalcBtnClicked(btn) {
       btnDetails.content = "subtract";
       break;
     case calcBtns[12]:
-      btnDetails.isDigit = true;
+      btnDetails.isDecimal = true;
       btnDetails.content = ".";
       break;
     case calcBtns[13]:
@@ -167,6 +168,18 @@ function calcBtnClicked() {
   } else if (btn.isBackspace && operatorSelected) {
     secondTerm = secondTerm.slice(0, -1);
     calcDisplay.textContent = secondTerm;
+  }
+
+  if (btn.isDecimal && !operatorSelected) {
+    if (!firstTerm.includes(".")) {
+      firstTerm += ".";
+      calcDisplay.textContent = firstTerm;
+    }
+  } else if (btn.isDecimal && operatorSelected) {
+    if (!secondTerm.includes(".")) {
+      secondTerm += ".";
+      calcDisplay.textContent = secondTerm;
+    }
   }
 }
 
