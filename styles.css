@@ -34,15 +34,16 @@ button {
 
 .calc-display {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
   align-items: center;
-  height: 50px;
+  height: 100px;
   font-size: 48px;
   padding-right: 4px;
   margin-bottom: 6px;
   border-radius: 4px;
   border: 1px black solid;
   background-color: #ffffff;
+  overflow: auto;
 }
 
 .calc-buttons-container {
