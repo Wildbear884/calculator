@@ -160,6 +160,14 @@ function calcBtnClicked() {
     answer = "";
     calcDisplay.textContent = "";
   }
+
+  if (btn.isBackspace && !operatorSelected) {
+    firstTerm = firstTerm.slice(0, -1);
+    calcDisplay.textContent = firstTerm;
+  } else if (btn.isBackspace && operatorSelected) {
+    secondTerm = secondTerm.slice(0, -1);
+    calcDisplay.textContent = secondTerm;
+  }
 }
 
 let selectedOperator = "";
