@@ -29,164 +29,129 @@ function operate(term1, term2, operator) {
 }
 
 function getCalcBtnClicked(btn) {
-  let btnDetails = {
-    isDigit: false,
-    isOperator: false,
-    isBackspace: false,
-    isClear: false,
-    isEquals: false,
-    isDecimal: false,
-    content: "",
-  };
-  
-  switch (btn) {
-    case calcBtns[0]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "7";
-      break;
-    case calcBtns[1]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "8";
-      break;
-    case calcBtns[2]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "9";
-      break;
-    case calcBtns[3]:
-      btnDetails.isOperator = true;
-      btnDetails.content = "divide";
-      break;
-    case calcBtns[4]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "4";
-      break;
-    case calcBtns[5]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "5";
-      break;
-    case calcBtns[6]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "6";
-      break;
-    case calcBtns[7]:
-      btnDetails.isOperator = true;
-      btnDetails.content = "multiply";
-      break;
-    case calcBtns[8]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "1";
-      break;
-    case calcBtns[9]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "2";
-      break;
-    case calcBtns[10]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "3";
-      break;
-    case calcBtns[11]:
-      btnDetails.isOperator = true;
-      btnDetails.content = "subtract";
-      break;
-    case calcBtns[12]:
-      btnDetails.isDecimal = true;
-      btnDetails.content = ".";
-      break;
-    case calcBtns[13]:
-      btnDetails.isDigit = true;
-      btnDetails.content = "0";
-      break;
-    case calcBtns[14]:
-      btnDetails.isBackspace = true;
-      btnDetails.content = "backspace";
-      break;
-    case calcBtns[15]:
-      btnDetails.isOperator = true;
-      btnDetails.content = "add";
-      break;
-    case calcBtns[16]:
-      btnDetails.isClear = true;
-      btnDetails.content = "clear";
-      break;
-    case calcBtns[17]:
-      btnDetails.isEquals = true;
-      btnDetails.content = "equals";
-      break;
+  switch (btn.textContent) {
+    case "+":
+      return "add";
+    case "-":
+      return "subtract";
+    case "/":
+      return "divide";
+    case "*":
+      return "multiply";
+    case "=":
+      return "equals";
+    case "⌫":
+      return "backspace";
     default:
-      return "Unknown button";
+      return btn.textContent;
   }
-  return btnDetails;
+}
+
+function checkIfCalcDigit(value) {
+  if (value >= 0 && !(value === "")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkIfDecimal(value) {
+  return value === ".";
+}
+
+function updateDisplay(what) {
+  calcDisplay.textContent = what;
+}
+
+function checkIfBackspace(value) {
+  return value === "backspace";
+}
+
+function checkIfClear(value) {
+  return value === "Clear";
+}
+
+function checkIfOperator(value) {
+  if (value === "add" ||
+      value === "subtract" ||
+      value === "multiply" ||
+      value === "divide"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkIfEquals(value) {
+  return value === "equals";
 }
 
 function calcBtnClicked() {
   const btn = getCalcBtnClicked(this);
-  
-  if (btn.isDigit && !operatorSelected) {
-    firstTerm += btn.content;
-    calcDisplay.textContent = firstTerm;
-  } else if (btn.isDigit && operatorSelected) {
-    secondTerm += btn.content;
-    calcDisplay.textContent = secondTerm;
+
+  if (checkIfCalcDigit(btn) && !operatorSelected) {
+    firstTerm += btn;
+    updateDisplay(firstTerm);
+  } else if (checkIfCalcDigit(btn) && operatorSelected) {
+    secondTerm += btn;
+    updateDisplay(secondTerm);
   }
-  
-  if (btn.isOperator && !operatorSelected && firstTerm.length > 0) {
+
+  if (checkIfOperator(btn) && !operatorSelected && firstTerm.length > 0) {
     operatorSelected = true;
-  } else if (btn.isOperator && operatorSelected && secondTerm.length > 0) {
+  } else if (checkIfOperator(btn) && operatorSelected && secondTerm.length > 0) {
     if (selectedOperator === "divide" && secondTerm === "0") {
-      calcDisplay.textContent = snarkyComment;
+      updateDisplay(snarkyComment);
       secondTerm = "";
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator).toString();
-      calcDisplay.textContent = answer;
+      updateDisplay(answer);
       firstTerm = answer;
       secondTerm = "";
     }
   }
 
-  if (btn.isOperator) {
-    selectedOperator = btn.content;
+  if (checkIfOperator(btn)) {
+    selectedOperator = btn;
   } 
-  
-  if (btn.isEquals && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0) {
+
+  if (checkIfEquals(btn) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0) {
     if (selectedOperator === "divide" && secondTerm === "0") {
-      calcDisplay.textContent = snarkyComment;
+      updateDisplay(snarkyComment);
       secondTerm = "";
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator);
-      calcDisplay.textContent = answer;
+      updateDisplay(answer);
       firstTerm = "";
       secondTerm = "";
       operatorSelected = false;
     }
   }
 
-  if (btn.isClear) {
+  if (checkIfDecimal(btn) && !operatorSelected && !firstTerm.includes(".")) {
+    firstTerm += btn;
+    updateDisplay(firstTerm);
+  } else if (checkIfDecimal(btn) && operatorSelected && !secondTerm.includes(".")) {
+    secondTerm += btn;
+    updateDisplay(secondTerm);
+  }
+
+  if (checkIfBackspace(btn) && !operatorSelected) {
+    firstTerm = firstTerm.slice(0, -1);
+    updateDisplay(firstTerm);
+  } else if (checkIfBackspace(btn) && operatorSelected) {
+    secondTerm = secondTerm.slice(0, -1);
+    updateDisplay(secondTerm);;
+  }
+
+  if (checkIfClear(btn)) {
     selectedOperator = "";
     operatorSelected = false;
     firstTerm = "";
     secondTerm = "";
     answer = "";
-    calcDisplay.textContent = "";
-  }
-
-  if (btn.isBackspace && !operatorSelected) {
-    firstTerm = firstTerm.slice(0, -1);
-    calcDisplay.textContent = firstTerm;
-  } else if (btn.isBackspace && operatorSelected) {
-    secondTerm = secondTerm.slice(0, -1);
-    calcDisplay.textContent = secondTerm;
-  }
-
-  if (btn.isDecimal && !operatorSelected) {
-    if (!firstTerm.includes(".")) {
-      firstTerm += ".";
-      calcDisplay.textContent = firstTerm;
-    }
-  } else if (btn.isDecimal && operatorSelected) {
-    if (!secondTerm.includes(".")) {
-      secondTerm += ".";
-      calcDisplay.textContent = secondTerm;
-    }
+    updateDisplay("");
   }
 }
 
