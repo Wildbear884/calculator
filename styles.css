@@ -56,3 +56,8 @@ button {
 .calc-btn-clear {
   flex-grow: 1;
 }
+
+.selected {
+  color: #ffffff;
+  background-color: #001a00;
+}
