@@ -67,10 +67,6 @@ function checkIfDecimal(value) {
   return value === ".";
 }
 
-function updateDisplay(what) {
-  calcDisplay.textContent = what;
-}
-
 function checkIfBackspace(value) {
   return value === "backspace";
 }
@@ -81,9 +77,9 @@ function checkIfClear(value) {
 
 function checkIfOperator(value) {
   if (value === "add" ||
-      value === "subtract" ||
-      value === "multiply" ||
-      value === "divide"
+    value === "subtract" ||
+    value === "multiply" ||
+    value === "divide"
   ) {
     return true;
   } else {
@@ -93,6 +89,10 @@ function checkIfOperator(value) {
 
 function checkIfEquals(value) {
   return value === "equals";
+}
+
+function updateDisplay(what) {
+  calcDisplay.textContent = what;
 }
 
 function calcBtnClicked(keyDown) {
