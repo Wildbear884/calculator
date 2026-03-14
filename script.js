@@ -119,7 +119,9 @@ function onCalcBtnPress(keyDown) {
   } else if ((checkIfOperator(btn) || checkIfOperator(key)) && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
+      firstTerm = "";
       secondTerm = "";
+      operatorSelected = false;
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator).toString();
       updateDisplay(answer);
@@ -139,6 +141,7 @@ function onCalcBtnPress(keyDown) {
       updateDisplay(snarkyComment);
       firstTerm = "";
       secondTerm = "";
+      operatorSelected = false;
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator);
       updateDisplay(answer);
