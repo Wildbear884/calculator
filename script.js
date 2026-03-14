@@ -1,3 +1,4 @@
+/* Math functions */
 function add(term1, term2) {
   return Number(term1) + Number(term2);
 }
@@ -28,6 +29,7 @@ function operate(term1, term2, operator) {
   }
 }
 
+/* "Getting" function */
 function getCalcBtnPressed(btn) {
   switch (btn) {
     case "+":
@@ -55,6 +57,7 @@ function getCalcBtnPressed(btn) {
   }
 }
 
+/* Checking functions */
 function checkIfCalcDigit(value) {
   if (value >= 0 && !(value === "")) {
     return true;
@@ -91,14 +94,17 @@ function checkIfEquals(value) {
   return value === "equals";
 }
 
+/* Display function */
 function updateDisplay(what) {
   calcDisplay.textContent = what;
 }
 
+/* Event function */
 function onCalcBtnPress(keyDown) {
   const btn = getCalcBtnPressed(this.textContent);
   const key = getCalcBtnPressed(keyDown.key);
-  
+
+  /* Digit button behavior */
   if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && !operatorSelected) {
     firstTerm += btn || key;
     updateDisplay(firstTerm);
@@ -107,6 +113,7 @@ function onCalcBtnPress(keyDown) {
     updateDisplay(secondTerm);
   }
 
+  /* Operator button behavior */
   if ((checkIfOperator(btn) || checkIfOperator(key)) && !operatorSelected && firstTerm.length > 0 && !(firstTerm === ".")) {
     operatorSelected = true;
   } else if ((checkIfOperator(btn) || checkIfOperator(key)) && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
@@ -121,10 +128,12 @@ function onCalcBtnPress(keyDown) {
     }
   }
 
+  /* Operator assignment */
   if (checkIfOperator(btn) || checkIfOperator(key)) {
     selectedOperator = btn || key;
   } 
 
+  /* Equals button behavior */
   if ((checkIfEquals(btn) || checkIfEquals(key)) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
@@ -139,6 +148,7 @@ function onCalcBtnPress(keyDown) {
     }
   }
 
+  /* Decimal button behavior */
   if ((checkIfDecimal(btn) || checkIfDecimal(key)) && !operatorSelected && !firstTerm.includes(".")) {
     firstTerm += btn || key;
     updateDisplay(firstTerm);
@@ -147,6 +157,7 @@ function onCalcBtnPress(keyDown) {
     updateDisplay(secondTerm);
   }
 
+  /* Backspace button behavior */
   if ((checkIfBackspace(btn) || checkIfBackspace(key)) && !operatorSelected) {
     firstTerm = firstTerm.slice(0, -1);
     updateDisplay(firstTerm);
@@ -155,6 +166,7 @@ function onCalcBtnPress(keyDown) {
     updateDisplay(secondTerm);;
   }
 
+  /* Clear button behavior */
   if (checkIfClear(btn) || checkIfClear(key)) {
     selectedOperator = "";
     operatorSelected = false;
@@ -164,11 +176,13 @@ function onCalcBtnPress(keyDown) {
     updateDisplay("");
   }
 
+  /* Other behavior */
   if (keyDown.type === "click") {
     this.blur();
   }
 }
 
+/* Global variables */
 let selectedOperator = "";
 let operatorSelected = false;
 let firstTerm = "";
@@ -176,9 +190,11 @@ let secondTerm = "";
 let answer = "";
 const snarkyComment = "Dividing by 0? Really?";
 
+/* Document selectors */
 const calcBtns = document.querySelectorAll(".calc-buttons-container > button");
 const calcDisplay = document.querySelector(".calc-display");
 
+/* Events */
 calcBtns.forEach(btn => {
   btn.addEventListener("click", onCalcBtnPress);
 })
