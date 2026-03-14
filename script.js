@@ -95,7 +95,7 @@ function updateDisplay(what) {
   calcDisplay.textContent = what;
 }
 
-function calcBtnClicked(keyDown) {
+function onCalcBtnPress(keyDown) {
   const btn = getCalcBtnPressed(this.textContent);
   const key = getCalcBtnPressed(keyDown.key);
   
@@ -180,7 +180,7 @@ const calcBtns = document.querySelectorAll(".calc-buttons-container > button");
 const calcDisplay = document.querySelector(".calc-display");
 
 calcBtns.forEach(btn => {
-  btn.addEventListener("click", calcBtnClicked);
+  btn.addEventListener("click", onCalcBtnPress);
 })
 
-document.addEventListener("keydown", calcBtnClicked);
+document.addEventListener("keydown", onCalcBtnPress);
