@@ -29,7 +29,7 @@ function operate(term1, term2, operator) {
 }
 
 function getCalcBtnClicked(btn) {
-  switch (btn.textContent) {
+  switch (btn) {
     case "+":
       return "add";
     case "-":
@@ -39,11 +39,19 @@ function getCalcBtnClicked(btn) {
     case "*":
       return "multiply";
     case "=":
+    case "Enter":
       return "equals";
     case "⌫":
+    case "Backspace":
       return "backspace";
+    case "Delete":
+    case "Escape":
+      return "clear";
+    case null:
+    case undefined:
+      return "";
     default:
-      return btn.textContent;
+      return btn;
   }
 }
 
@@ -68,7 +76,7 @@ function checkIfBackspace(value) {
 }
 
 function checkIfClear(value) {
-  return value === "Clear";
+  return value.toLowerCase() === "clear";
 }
 
 function checkIfOperator(value) {
@@ -87,20 +95,21 @@ function checkIfEquals(value) {
   return value === "equals";
 }
 
-function calcBtnClicked() {
-  const btn = getCalcBtnClicked(this);
-
-  if (checkIfCalcDigit(btn) && !operatorSelected) {
-    firstTerm += btn;
+function calcBtnClicked(keyDown) {
+  const btn = getCalcBtnClicked(this.textContent);
+  const key = getCalcBtnClicked(keyDown.key);
+  
+  if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && !operatorSelected) {
+    firstTerm += btn || key;
     updateDisplay(firstTerm);
-  } else if (checkIfCalcDigit(btn) && operatorSelected) {
-    secondTerm += btn;
+  } else if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && operatorSelected) {
+    secondTerm += btn || key;
     updateDisplay(secondTerm);
   }
 
-  if (checkIfOperator(btn) && !operatorSelected && firstTerm.length > 0) {
+  if ((checkIfOperator(btn) || checkIfOperator(key)) && !operatorSelected && firstTerm.length > 0 && !(firstTerm === ".")) {
     operatorSelected = true;
-  } else if (checkIfOperator(btn) && operatorSelected && secondTerm.length > 0) {
+  } else if ((checkIfOperator(btn) || checkIfOperator(key)) && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
       secondTerm = "";
@@ -112,13 +121,14 @@ function calcBtnClicked() {
     }
   }
 
-  if (checkIfOperator(btn)) {
-    selectedOperator = btn;
+  if (checkIfOperator(btn) || checkIfOperator(key)) {
+    selectedOperator = btn || key;
   } 
 
-  if (checkIfEquals(btn) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0) {
+  if ((checkIfEquals(btn) || checkIfEquals(key)) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
+      firstTerm = "";
       secondTerm = "";
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator);
@@ -129,29 +139,33 @@ function calcBtnClicked() {
     }
   }
 
-  if (checkIfDecimal(btn) && !operatorSelected && !firstTerm.includes(".")) {
-    firstTerm += btn;
+  if ((checkIfDecimal(btn) || checkIfDecimal(key)) && !operatorSelected && !firstTerm.includes(".")) {
+    firstTerm += btn || key;
     updateDisplay(firstTerm);
-  } else if (checkIfDecimal(btn) && operatorSelected && !secondTerm.includes(".")) {
-    secondTerm += btn;
+  } else if ((checkIfDecimal(btn) || checkIfDecimal(key)) && operatorSelected && !secondTerm.includes(".")) {
+    secondTerm += btn || key;
     updateDisplay(secondTerm);
   }
 
-  if (checkIfBackspace(btn) && !operatorSelected) {
+  if ((checkIfBackspace(btn) || checkIfBackspace(key)) && !operatorSelected) {
     firstTerm = firstTerm.slice(0, -1);
     updateDisplay(firstTerm);
-  } else if (checkIfBackspace(btn) && operatorSelected) {
+  } else if ((checkIfBackspace(btn) || checkIfBackspace(key)) && operatorSelected) {
     secondTerm = secondTerm.slice(0, -1);
     updateDisplay(secondTerm);;
   }
 
-  if (checkIfClear(btn)) {
+  if (checkIfClear(btn) || checkIfClear(key)) {
     selectedOperator = "";
     operatorSelected = false;
     firstTerm = "";
     secondTerm = "";
     answer = "";
     updateDisplay("");
+  }
+
+  if (keyDown.type === "click") {
+    this.blur();
   }
 }
 
@@ -168,3 +182,5 @@ const calcDisplay = document.querySelector(".calc-display");
 calcBtns.forEach(btn => {
   btn.addEventListener("click", calcBtnClicked);
 })
+
+document.addEventListener("keydown", calcBtnClicked);
