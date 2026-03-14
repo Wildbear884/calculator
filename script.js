@@ -28,7 +28,7 @@ function operate(term1, term2, operator) {
   }
 }
 
-function getCalcBtnClicked(btn) {
+function getCalcBtnPressed(btn) {
   switch (btn) {
     case "+":
       return "add";
@@ -96,8 +96,8 @@ function checkIfEquals(value) {
 }
 
 function calcBtnClicked(keyDown) {
-  const btn = getCalcBtnClicked(this.textContent);
-  const key = getCalcBtnClicked(keyDown.key);
+  const btn = getCalcBtnPressed(this.textContent);
+  const key = getCalcBtnPressed(keyDown.key);
   
   if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && !operatorSelected) {
     firstTerm += btn || key;
