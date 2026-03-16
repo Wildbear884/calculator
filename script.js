@@ -149,7 +149,7 @@ function onCalcBtnPress(keyDown) {
 
   /* Operator assignment */
   if (btnDetails.isOperator) {
-    selectedOperator = btn || key;
+    selectedOperator = btnDetails.content;
   }
 
   if (btnDetails.isOperator &&
