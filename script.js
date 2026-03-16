@@ -140,9 +140,7 @@ function onCalcBtnPress(keyDown) {
   }
 
   /* Operator button behavior */
-  if (btnDetails.isOperator && !operatorSelected && firstTerm.length > 0 && !(firstTerm === ".")) {
-    operatorSelected = true;
-  } else if (btnDetails.isOperator && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
+  if (btnDetails.isOperator && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
       resetCalc();
@@ -160,6 +158,7 @@ function onCalcBtnPress(keyDown) {
      (firstTerm.length > 0 || secondTerm.length > 0) &&
      (!(firstTerm === ".") && !(secondTerm === "."))
     ) {
+      operatorSelected = true;
       selectedOperator = btnDetails.content;
       removeSelectedClassFromOperatorBtns();
       calcOperatorBtns[selectedOperator].classList.add("selected");
