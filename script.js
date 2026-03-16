@@ -99,6 +99,16 @@ function updateDisplay(what) {
   calcDisplay.textContent = what;
 }
 
+/* Reset and removing function */
+function resetCalc() {
+  firstTerm = "";
+  secondTerm = "";
+  operatorSelected = false;
+  answer = "";
+  selectedOperator = "";
+  removeSelectedClassFromOperatorBtns();
+}
+
 function removeSelectedClassFromOperatorBtns() {
   for (let operator in calcOperatorBtns) {
     calcOperatorBtns[operator].classList.remove("selected");
@@ -135,10 +145,7 @@ function onCalcBtnPress(keyDown) {
   } else if (btnDetails.isOperator && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
-      firstTerm = "";
-      secondTerm = "";
-      operatorSelected = false;
-      removeSelectedClassFromOperatorBtns();
+      resetCalc();
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator).toString();
       updateDisplay(answer);
@@ -164,17 +171,11 @@ function onCalcBtnPress(keyDown) {
   if (btnDetails.isEquals && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
-      firstTerm = "";
-      secondTerm = "";
-      operatorSelected = false;
-      removeSelectedClassFromOperatorBtns();
+      resetCalc();
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator);
       updateDisplay(answer);
-      firstTerm = "";
-      secondTerm = "";
-      operatorSelected = false;
-      removeSelectedClassFromOperatorBtns();
+      resetCalc();
     }
   }
 
@@ -199,13 +200,8 @@ function onCalcBtnPress(keyDown) {
 
   /* Clear button behavior */
   if (btnDetails.isClear) {
-    selectedOperator = "";
-    operatorSelected = false;
-    firstTerm = "";
-    secondTerm = "";
-    answer = "";
+    resetCalc();
     updateDisplay("");
-    removeSelectedClassFromOperatorBtns();
   }
 
   /* Other behavior */
