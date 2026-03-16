@@ -99,6 +99,12 @@ function updateDisplay(what) {
   calcDisplay.textContent = what;
 }
 
+function removeSelectedClassFromOperatorBtns() {
+  for (let operator in calcOperatorBtns) {
+    calcOperatorBtns[operator].classList.remove("selected");
+  }
+}
+
 /* Event function */
 function onCalcBtnPress(keyDown) {
   const btn = getCalcBtnPressed(this.textContent);
