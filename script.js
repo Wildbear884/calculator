@@ -109,20 +109,30 @@ function removeSelectedClassFromOperatorBtns() {
 function onCalcBtnPress(keyDown) {
   const btn = getCalcBtnPressed(this.textContent);
   const key = getCalcBtnPressed(keyDown.key);
+  const btnDetails = {
+    isDigit: checkIfCalcDigit(btn) || checkIfCalcDigit(key),
+    isOperator: checkIfOperator(btn) || checkIfOperator(key),
+    isEquals: checkIfEquals(btn) || checkIfEquals(key),
+    isDecimal: checkIfDecimal(btn) || checkIfDecimal(key),
+    isBackspace: checkIfBackspace(btn) || checkIfBackspace(key),
+    isClear: checkIfClear(btn) || checkIfClear(key),
+    content: btn || key,
+  }
 
   /* Digit button behavior */
-  if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && !operatorSelected) {
-    firstTerm += btn || key;
+  if (btnDetails.isDigit && !operatorSelected) {
+    firstTerm += btnDetails.content;
     updateDisplay(firstTerm);
-  } else if ((checkIfCalcDigit(btn) || checkIfCalcDigit(key)) && operatorSelected) {
-    secondTerm += btn || key;
+  } else if (btnDetails.isDigit && operatorSelected) {
+    secondTerm += btnDetails.content;
+    removeSelectedClassFromOperatorBtns();
     updateDisplay(secondTerm);
   }
 
   /* Operator button behavior */
-  if ((checkIfOperator(btn) || checkIfOperator(key)) && !operatorSelected && firstTerm.length > 0 && !(firstTerm === ".")) {
+  if (btnDetails.isOperator && !operatorSelected && firstTerm.length > 0 && !(firstTerm === ".")) {
     operatorSelected = true;
-  } else if ((checkIfOperator(btn) || checkIfOperator(key)) && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
+  } else if (btnDetails.isOperator && operatorSelected && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
       firstTerm = "";
@@ -138,11 +148,11 @@ function onCalcBtnPress(keyDown) {
   }
 
   /* Operator assignment */
-  if (checkIfOperator(btn) || checkIfOperator(key)) {
+  if (btnDetails.isOperator) {
     selectedOperator = btn || key;
   }
 
-  if ((checkIfOperator(btn) || checkIfOperator(key)) &&
+  if (btnDetails.isOperator &&
       (firstTerm.length > 0 || secondTerm.length > 0) &&
       (!(firstTerm === ".") || !(secondTerm === "."))
     ) {
@@ -151,7 +161,7 @@ function onCalcBtnPress(keyDown) {
     }
 
   /* Equals button behavior */
-  if ((checkIfEquals(btn) || checkIfEquals(key)) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
+  if (btnDetails.isEquals && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
     if (selectedOperator === "divide" && secondTerm === "0") {
       updateDisplay(snarkyComment);
       firstTerm = "";
@@ -169,25 +179,26 @@ function onCalcBtnPress(keyDown) {
   }
 
   /* Decimal button behavior */
-  if ((checkIfDecimal(btn) || checkIfDecimal(key)) && !operatorSelected && !firstTerm.includes(".")) {
-    firstTerm += btn || key;
+  if (btnDetails.isDecimal && !operatorSelected && !firstTerm.includes(".")) {
+    firstTerm += btnDetails.content;
     updateDisplay(firstTerm);
-  } else if ((checkIfDecimal(btn) || checkIfDecimal(key)) && operatorSelected && !secondTerm.includes(".")) {
-    secondTerm += btn || key;
+  } else if (btnDetails.isDecimal && operatorSelected && !secondTerm.includes(".")) {
+    secondTerm += btnDetails.content;
+    removeSelectedClassFromOperatorBtns();
     updateDisplay(secondTerm);
   }
 
   /* Backspace button behavior */
-  if ((checkIfBackspace(btn) || checkIfBackspace(key)) && !operatorSelected) {
+  if (btnDetails.isBackspace && !operatorSelected) {
     firstTerm = firstTerm.slice(0, -1);
     updateDisplay(firstTerm);
-  } else if ((checkIfBackspace(btn) || checkIfBackspace(key)) && operatorSelected) {
+  } else if (btnDetails.isBackspace && operatorSelected) {
     secondTerm = secondTerm.slice(0, -1);
-    updateDisplay(secondTerm);;
+    updateDisplay(secondTerm);
   }
 
   /* Clear button behavior */
-  if (checkIfClear(btn) || checkIfClear(key)) {
+  if (btnDetails.isClear) {
     selectedOperator = "";
     operatorSelected = false;
     firstTerm = "";
