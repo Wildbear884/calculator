@@ -154,15 +154,13 @@ function onCalcBtnPress(keyDown) {
     }
   }
 
-  /* Operator assignment */
-  if (btnDetails.isOperator) {
-    selectedOperator = btnDetails.content;
-  }
+  /* Operator assignment and highlighting */
 
   if (btnDetails.isOperator &&
-      (firstTerm.length > 0 || secondTerm.length > 0) &&
-      (!(firstTerm === ".") || !(secondTerm === "."))
+     (firstTerm.length > 0 || secondTerm.length > 0) &&
+     (!(firstTerm === ".") && !(secondTerm === "."))
     ) {
+      selectedOperator = btnDetails.content;
       removeSelectedClassFromOperatorBtns();
       calcOperatorBtns[selectedOperator].classList.add("selected");
     }
