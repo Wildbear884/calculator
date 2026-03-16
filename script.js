@@ -128,6 +128,7 @@ function onCalcBtnPress(keyDown) {
       firstTerm = "";
       secondTerm = "";
       operatorSelected = false;
+      removeSelectedClassFromOperatorBtns();
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator).toString();
       updateDisplay(answer);
@@ -139,7 +140,15 @@ function onCalcBtnPress(keyDown) {
   /* Operator assignment */
   if (checkIfOperator(btn) || checkIfOperator(key)) {
     selectedOperator = btn || key;
-  } 
+  }
+
+  if ((checkIfOperator(btn) || checkIfOperator(key)) &&
+      (firstTerm.length > 0 || secondTerm.length > 0) &&
+      (!(firstTerm === ".") || !(secondTerm === "."))
+    ) {
+      removeSelectedClassFromOperatorBtns();
+      calcOperatorBtns[selectedOperator].classList.add("selected");
+    }
 
   /* Equals button behavior */
   if ((checkIfEquals(btn) || checkIfEquals(key)) && operatorSelected && firstTerm.length > 0 && secondTerm.length > 0 && !(secondTerm === ".")) {
@@ -148,12 +157,14 @@ function onCalcBtnPress(keyDown) {
       firstTerm = "";
       secondTerm = "";
       operatorSelected = false;
+      removeSelectedClassFromOperatorBtns();
     } else {
       answer = operate(firstTerm, secondTerm, selectedOperator);
       updateDisplay(answer);
       firstTerm = "";
       secondTerm = "";
       operatorSelected = false;
+      removeSelectedClassFromOperatorBtns();
     }
   }
 
@@ -183,6 +194,7 @@ function onCalcBtnPress(keyDown) {
     secondTerm = "";
     answer = "";
     updateDisplay("");
+    removeSelectedClassFromOperatorBtns();
   }
 
   /* Other behavior */
