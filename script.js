@@ -197,6 +197,14 @@ const snarkyComment = "Dividing by 0? Really?";
 const calcBtns = document.querySelectorAll(".calc-buttons-container > button");
 const calcDisplay = document.querySelector(".calc-display");
 
+/* Operator buttons selector */
+const calcOperatorBtns = {
+  divide: document.querySelector(".calc-btn-divide"),
+  multiply: document.querySelector(".calc-btn-multiply"),
+  subtract: document.querySelector(".calc-btn-subtract"),
+  add: document.querySelector(".calc-btn-add"),
+}
+
 /* Events */
 calcBtns.forEach(btn => {
   btn.addEventListener("click", onCalcBtnPress);
