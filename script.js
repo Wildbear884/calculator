@@ -108,9 +108,9 @@ function checkIfOperator(value) {
     value === "divide"
   ) {
     return true;
-  } else {
-    return false;
   }
+  
+  return false;
 }
 
 function checkIfEquals(value) {
