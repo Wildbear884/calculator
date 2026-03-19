@@ -28,7 +28,7 @@ All of the buttons have keyboard equivalents which are the same as their button 
 `0-9` Enters a digit into the calculator.;
 
 ### Operators:
-`+`  Selects addition. </br>
+`+`  is addition. </br>
 `-`  is subtraction. </br>
 `*`  is multiplication. </br>
 `/` is division.
