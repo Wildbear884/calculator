@@ -38,6 +38,7 @@ function operate(term1, term2, operator) {
   return answer;
 }
 
+/* Decimal digits functions */
 function countDecimalDigits(float) {
   return float.toString().split(".")[1].length;
 }
