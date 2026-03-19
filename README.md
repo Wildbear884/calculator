@@ -6,7 +6,7 @@ A simple web calculator.
 Preforms a mathematical operation based on the user selected inputs and displays the answer.
 
 # How to use it
-Open up the live preview by clicking [here]() (Link currently not available)
+Open up the live preview by clicking [here](https://wildbear884.github.io/calculator/)
 - Enter the first number you would like to use.
 - Select the operator you would like to use.
 - Enter the second number you would like to use.
