@@ -16,17 +16,40 @@ function divide(dividend, divisor) {
 }
 
 function operate(term1, term2, operator) {
+  let answer = 0;
   if (operator === "add") {
-    return add(term1, term2);
+    answer = add(term1, term2);
   } else if (operator === "subtract") {
-    return subtract(term1, term2);
+    answer = subtract(term1, term2);
   } else if (operator === "multiply") {
-    return multiply(term1, term2);
+    answer = multiply(term1, term2);
   } else if (operator === "divide") {
-    return divide(term1, term2);
+    answer =  divide(term1, term2);
   } else {
     return "Something went wrong. No calculations were preformed.";
   }
+
+  // I chose to round to 4 decimal digits because it works fine for this project.
+  // This bit also adequately resolves the issue with floating point arithmetic.
+  if (!Number.isInteger(answer) && countDecimalDigits(answer) > 4) {
+    return roundDecimalDigits(answer, 4);
+  }
+
+  return answer;
+}
+
+function countDecimalDigits(float) {
+  return float.toString().split(".")[1].length;
+}
+
+function roundDecimalDigits(startingValue, digits) {
+  startingValue = Number(startingValue);
+  
+  if (Number.isNaN(startingValue)) {
+    return "Function roundDecimalDigits says: startingValue is NaN";
+  }
+
+  return Number(startingValue.toFixed(digits));
 }
 
 /* "Getting" function */
