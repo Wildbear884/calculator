@@ -3,7 +3,7 @@
 A simple web calculator.
 
 # What it does
-Preforms a mathematical operation based on the user selected inputs and displays the answer.
+Preforms a mathematical operation based on the user selected inputs and displays the answer rounded to the fourth decimal digit if the answer would have been longer than four decimal digits.
 
 # How to use it
 Open up the live preview by clicking [here](https://wildbear884.github.io/calculator/)
