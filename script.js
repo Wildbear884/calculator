@@ -82,12 +82,11 @@ function getCalcBtnPressed(btn) {
 }
 
 /* Checking functions */
+
+// This doesn't check if the value is greater than 9 
+// because it should never receive a value greater than 9
 function checkIfCalcDigit(value) {
-  if (value >= 0 && !(value === "")) {
-    return true;
-  } else {
-    return false;
-  }
+  return value >= 0 && !(value === "");
 }
 
 function checkIfDecimal(value) {
