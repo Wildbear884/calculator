@@ -11,9 +11,10 @@ html {
 
 body {
   margin: 0px;
+  padding: 8px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
   height: 100vh;
 }
 
@@ -22,6 +23,13 @@ button {
   height: 142px;
   font-size: 48px;
   font-family: inherit;
+}
+
+.info-container {
+  background-color: #f2f2f2;
+  padding: 0px 16px 16px 16px;
+  max-width: 600px;
+  flex: 1;
 }
 
 .calc-container {
