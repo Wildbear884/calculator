@@ -1,11 +1,11 @@
 # TOP Calculator
-# Description
+## Description
 A simple web calculator.
 
-# What it does
+## What it does
 Preforms a mathematical operation based on the user selected inputs and displays the answer rounded to the fourth decimal digit if the answer would have been longer than four decimal digits.
 
-# How to use it
+## How to use it
 Open up the [live preview](https://wildbear884.github.io/calculator/) then:
 - Enter the first number you would like to use.
 - Select the operator you would like to use.
@@ -21,26 +21,26 @@ Ex.
 - Enter `2` Second number is `2`.
 - Select `=` The operation `20 + 2 = 22` will be preformed, `22` will be displayed and the calculator will be reset.
 
-## Buttons
+### Buttons
 All of the buttons have keyboard equivalents which are the same as their button counterparts unless listed in parentheses.
 
-### Digits:
+#### Digits:
 `0-9` Enters a digit into the calculator.;
 
-### Operators:
+#### Operators:
 `+`  is addition. </br>
 `-`  is subtraction. </br>
 `*`  is multiplication. </br>
 `/` is division.
 
-### Other buttons:
+#### Other buttons:
 `Clear` clears the display and resets the calculator (keyboard: `Delete`) </br>
 `=` Equals, preforms the math operation, displays the results and resets the calculator. (keyboard: `Enter`) </br>
 `.` Adds a decimal point. (You can only have one decimal point in a number). </br>
 `⌫` is the backspace button, it removes the last entered digit or decimal on the display. (keyboard: `Backspace`)
 
-# Other notes:
+## Other notes:
 This project is not tested for mobile and may or may not work on mobile devices.
 
-# Why this project was created:
+## Why this project was created:
 This project was created for learning purposes and for [The Odin Project's calculator project assignment.](https://www.theodinproject.com/lessons/foundations-calculator#assignment)
