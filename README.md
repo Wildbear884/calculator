@@ -6,7 +6,7 @@ A simple web calculator.
 Preforms a mathematical operation based on the user selected inputs and displays the answer rounded to the fourth decimal digit if the answer would have been longer than four decimal digits.
 
 # How to use it
-Open up the live preview by clicking [here](https://wildbear884.github.io/calculator/)
+Open up the [live preview](https://wildbear884.github.io/calculator/) then:
 - Enter the first number you would like to use.
 - Select the operator you would like to use.
 - Enter the second number you would like to use.
@@ -43,4 +43,4 @@ All of the buttons have keyboard equivalents which are the same as their button 
 This project is not tested for mobile and may or may not work on mobile devices.
 
 # Why this project was created:
-This project was created for learning purposes and for the odin project's calculator project. The assignment for which can be found [here](https://www.theodinproject.com/lessons/foundations-calculator#assignment).
+This project was created for learning purposes and for [The Odin Project's calculator project assignment.](https://www.theodinproject.com/lessons/foundations-calculator#assignment)
